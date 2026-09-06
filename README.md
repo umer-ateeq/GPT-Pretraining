@@ -17,7 +17,7 @@ continue the run yourself.
 | Model | 8-block decoder-only transformer, 768 wide, 12 heads |
 | Dataset | **7B tokens**, FineWeb-Edu `CC-MAIN-2024-10` |
 | Hardware | one Tesla P100 16 GB, free Kaggle session |
-| Held-out perplexity | **38.89** on FineWeb-Edu, context 128 |
+| Held-out perplexity | **36.12** on FineWeb-Edu, context 128 |
 | Throughput | **10,200 tok/s**, **31.7% MFU**, 12.24 GB peak of 16 |
 | Weights | [umerateeq/zerotogpt-134m](https://huggingface.co/umerateeq/zerotogpt-134m), 538 MB |
 | Write-up | [ZeroToGPT on Level Up Coding](https://levelup.gitconnected.com/zerotogpt-a-comprehensive-guide-to-train-custom-gpt-from-scratch-on-7b-tokens-for-free-7bcd8aef07c3) |
@@ -70,11 +70,12 @@ the feed-forward block, the residual wiring, the sampler and the training loop.
 
 | Dataset | Perplexity | Context |
 |---|---|---|
-| **Held-out FineWeb-Edu** | **38.89** | 128 |
+| **Held-out FineWeb-Edu** | **36.12** | 128 |
 | TinyStories | 35.41 | 128 |
 | WikiText-2 | 184.96 | 128 |
 
-Scored on full raw test sets with non-overlapping windows.
+Scored on full raw test sets with non-overlapping windows. Every number is reproducible in one
+click, see [Evaluate the pretrained model](#evaluate-the-pretrained-model) below.
 
 ---
 
@@ -88,6 +89,25 @@ from the published checkpoint and plots the loss curve as it goes. Skip the "Loa
 to train from scratch instead.
 
 This is a base model: it completes text.
+
+---
+
+## Evaluate the pretrained model
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/umer-ateeq/GPT-Pretraining/blob/main/evaluate.ipynb)
+
+Hit **Run all**. It fetches the released checkpoint and the held-out split, scores every dataset in
+the results table above, and prints each number next to the command that produced it. Nothing to
+install, and it verifies the numbers in this README rather than asking you to take them on trust.
+
+To run the scorer directly instead:
+
+```bash
+python evaluate.py --ckpt weights8b_300epoch.pth --all --data-bin validation.bin
+```
+
+`evaluate.py` also scores any single dataset on its own, and runs GPT-2-small through the identical
+scoring function as a calibration baseline. Recorded output: [RESULTS.md](RESULTS.md).
 
 ---
 
