@@ -1,7 +1,7 @@
 # ZeroToGPT
 
-**We trained a GPT from scratch on 7 billion tokens, as undergraduates, without a research lab or
-massive compute.**
+**We built a GPT from scratch and pretrained it on a 7-billion-token corpus, as undergraduates,
+without a research lab or massive compute.**
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/umer-ateeq/GPT-Pretraining/blob/main/gpt_style_transformer_134m__training_on_7b_tokens_using_colab.ipynb)
 
@@ -50,7 +50,7 @@ the feed-forward block, the residual wiring, the sampler and the training loop.
 | Optimizer | AdamW | Learning rate | 4e-4 |
 | Weight decay | 0.1 | Grad clip | global norm 1.0 |
 | Precision | fp16 + `GradScaler` | Sequence length | 128 |
-| Batch | 32 x 128 = 4,096 tok/step | Dropout | 0.1 |
+| Batch | 32 x 128 = 4,096 tok/step | Tokens seen | **1.23B** of a 7B corpus |
 | Throughput | **10,200 tok/s** | Peak GPU memory | **12.24 GB** of 16 |
 | Achieved | **5.93 TFLOP/s** | MFU | **31.7%** of the P100's 18.7 TFLOP/s fp16 peak |
 
